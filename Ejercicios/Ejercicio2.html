@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title></title>
+        <script>
+            let palabra = prompt("Introduce una palabra:");
+            let vocales = ['a','e','i','o','u'];
+            let negrita = "";
+            var sumatorio = 1;
+
+            function pintarNegrita(palabraC){
+                for(var i = 0; i < palabraC.length; i++){ 
+                    for(var o = 0; o < vocales.length; o++){
+                        if(palabraC.charAt(i) == vocales[o].toString()){
+                            negrita = negrita + palabraC.charAt(i).bold();  
+                        }else if(sumatorio == vocales.length){
+                            negrita = negrita + palabraC.charAt(i);
+                        }else{
+                            sumatorio++;
+                        }
+                    }
+                    sumatorio = 1;
+                }
+                alert(negrita);
+                document.write(negrita);
+            }
+            pintarNegrita(palabra);
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>

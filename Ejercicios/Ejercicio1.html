@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title></title>
+        <script>
+            let palabra = prompt("Introduce una palabra:");
+            let vocales = ['a','e','i','o','u'];
+
+            var contador = 0;
+
+            function contarVocales(palabraC) {
+                
+                for(var i = 0; i < palabraC.length; i++){
+                    for(var o = 0; o < vocales.length; o++){
+                        if(palabraC.charAt(i) == vocales[o].toString()){
+                            contador++;
+                        }
+                    }
+                }
+                alert(contador);
+            }
+            contarVocales(palabra);
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>
