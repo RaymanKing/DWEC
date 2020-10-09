@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script>
+            var palabra = prompt("Introduce una palabra: ");
+            function palindromo(){
+                var palabraReverse = "";
+                var letra = "";
+                for(var i = 0; i < palabra.length; i++){
+                    console.log(palabra);
+                    letra = palabra.charAt(i);
+                    palabraReverse = palabraReverse + letra;
+                }
+                if(palabra == palabraReverse){
+                    console.log("Es palíndromo");
+                }else{
+                    console.log("No es palíndromo")
+                }
+            }
+            palindromo();
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

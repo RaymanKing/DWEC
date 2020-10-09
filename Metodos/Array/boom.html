@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <script>
+            var arrayNumeros = rellenarArray();
+            console.log(arrayNumeros);
+            comprobarSiete();
+
+            function rellenarArray(){
+                var largo = prompt("Introduce el largo de tu array de numeros: ");
+                var array = new Array();
+                for(var i = 0; i < largo; i++){
+                    var numero = prompt("Introduce un numero: ");
+                    if(numero.length != 1){
+                        console.log("Introduce solo un numero");
+                        i--;
+                    }else{
+                        array[i] = numero;
+                    }
+                }
+                return array;
+            }
+
+            function comprobarSiete(){
+                var contadorBoom = 0;
+                for(var i = 0; i < arrayNumeros.length; i++){
+                    if(arrayNumeros[i] == 7){
+                        contadorBoom++;
+                        i = arrayNumeros.length;
+                    }
+                }
+                if(contadorBoom != 0){
+                    console.log("Boom");
+                }else{
+                    console.log("No hay 7 en el array");
+                }
+            }
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

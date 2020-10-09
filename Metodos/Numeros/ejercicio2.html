@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script>
+            var arrayNumeros = new Array(100);
+            function oneHundred(){
+                for(var i = 0; i < 100; i++){
+                    var number = Math.floor(Math.random() * (1001 - 1) + 1);
+                    if(arrayNumeros.includes(number)){
+                        console.log("Esta repetido");
+                        i--;
+                    }else{
+                        arrayNumeros.push(number);
+                        console.log(number);
+                        document.write(number+"<br />");
+                    }
+                }
+            }
+            oneHundred();
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

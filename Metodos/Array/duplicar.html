@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <script>
+            const numeros = [20,40,60];
+            // Primera forma for each
+            console.log("Primera forma for each");
+            var fore = [];
+            numeros.forEach(function(numero, index){
+                fore[index] = numero * 2;
+            });
+            console.log(fore);
+
+            // Segunda forma for each
+            console.log("Segunda forma for each");
+            const doubleNumbers = [];
+            numeros.forEach(numero => doubleNumbers.push(numero*2));
+            console.log(doubleNumbers);
+
+            // Map
+            console.log("Utilizando map");
+            var doble = numeros.map(function(numero){
+                return numero * 2;
+            })
+            console.log(doble);
+
+            // Reduce
+            console.log("Primera forma reduce");
+            const doblee = [];
+            const reducer = (num) => num * 2;
+            for(var i = 0; i < numeros.length; i++){
+                doblee[i] = numeros.reduce(reducer);
+            }
+            console.log(doble);
+
+            // Reduce metodo 2
+            console.log("Segunda forma reduce");
+            const numberReduce = numeros.reduce((array,numero) => {
+                array.push(numero*2);
+                return array;
+            }, []);
+            console.log(numberReduce);
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

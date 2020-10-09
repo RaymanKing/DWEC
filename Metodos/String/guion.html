@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <script>
+            var frase = prompt("Escribe lo que quieras: ");
+
+            function guiones(){
+                var fraseGuion = "";
+                var final = frase.length;
+                for(var i = 0; i < frase.length; i++){
+                    if(frase.charAt(i) == " "){
+                        fraseGuion = fraseGuion + "";
+                    }else if(i == frase.length - 1){
+                        fraseGuion = fraseGuion + frase.charAt(i);
+                    }else{
+                        fraseGuion = fraseGuion + frase.charAt(i) + "-";
+                    }
+                }
+                console.log(fraseGuion);
+            }
+            guiones();
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

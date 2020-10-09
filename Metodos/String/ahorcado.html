@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <script>
+            var palabras = ["elefante", "lamborgini" ,"futbol", "estatua", "helicoptero"];
+            for(var x = 0; x < 10; x++){
+                var aleatorio = Math.floor(Math.random() * (6 - 0)) + 0;
+            }
+            var secret = palabras[aleatorio];                
+
+            function ahorcado(){
+                var word = "";
+                var replace = 0;
+                alert("Bienvenido a el ahorcado. Comenzemos cervatillo <3");
+
+                for(var guiones = 0; guiones < secret.length; guiones++){
+                    word = word + "_";
+                }
+                console.log(word);
+
+                for(var vidas = 5; vidas > 0; vidas--){
+                    console.log(vidas);
+                    if(vidas <= 5){
+                        console.log("Te quedan "+vidas+" vidas");
+                    }else if(vidas == 1){
+                        console.log("Te queda una vida");
+                    }
+                    var letra = prompt("Introduce una letra");
+                    if(letra.length == 1){
+                        for(var i = 0; i < secret.length; i++){
+                            if(letra == secret.charAt(i) && letra != word.charAt(i)){
+                                word = word.substr(0,i) + letra + word.substr(i+1, secret.length);
+                                replace++;
+                                console.log(word);                            
+                            }
+                        }
+                    }else{
+                        console.log("Por favor introduce solo una letra");
+                        vidas++;
+                    }
+                    if(replace == 0){
+                        console.log("Esa letra no está en la palabra");
+                    }else{
+                        vidas++;
+                        replace = 0;
+                    }
+                    console.log(word);
+                    if(word == secret){
+                        console.log("Felicidades acertaste la palabra <3");
+                        juego = false;
+                    }else if(vidas == 1){
+                        console.log("Lo siento inténtalo de nuevo :C");
+                        juego = false;
+                    }
+                }                
+            }
+            ahorcado();
+            
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

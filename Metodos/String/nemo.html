@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script>
+            var frase = prompt("Introduce una frase");
+            var espacio = " ";
+            var nemo = "nemo";
+
+            function buscandoNemo(){
+                var fraseSeparada = frase.split(espacio);
+                console.log(fraseSeparada);
+                if(fraseSeparada.includes(nemo)){
+                    var indice = fraseSeparada.indexOf(nemo);
+                    console.log("He encontrado a Nemo en la posición "+indice+" para la máquina y "+(indice+1)+" para el humano");
+                }else{
+                    console.log("No he encontrado a Nemo :(");
+                }
+            }
+            buscandoNemo();
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

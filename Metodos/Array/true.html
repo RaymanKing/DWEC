@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script>
+            var array = [true,true,false,true,false,true,true,false];
+
+
+            // Forma larga
+            function trues(){
+
+                var result = array.filter(Boolean);
+                console.log(result);
+
+                if(result.length != 0){
+                    console.log("Hay "+result.length+" trues.");
+                }else{
+                    console.log("0");
+                }
+            }
+            trues();
+
+
+            // Forma corta
+            var contador = truu(array);
+            if(contador != 0){
+                console.log("Hay "+contador+" trues.");
+            }else{
+                console.log("0");
+            }
+            
+            function truu(boleanos){
+                var resulta = boleanos.filter(Boolean);
+                return resulta.length;
+            }
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

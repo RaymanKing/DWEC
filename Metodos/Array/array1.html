@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <script>
+            var frase = prompt("Introduce una frase: ");
+            var espacio = " ";
+            var arrayFrase = frase.split(espacio);
+
+            function information(){
+                console.log("Numero de palabras: "+arrayFrase.length);
+                console.log(arrayFrase[0]);
+                console.log(arrayFrase[arrayFrase.length - 1]);
+                console.log(arrayFrase.reverse());
+                var copia = arrayFrase.reverse();
+                ordenAsc();
+                ordenDes();
+            }
+            information();
+
+            function ordenAsc(){
+                console.log(arrayFrase.sort());
+            }
+
+            function ordenDes(){
+                console.log(arrayFrase.reverse());
+            }
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
