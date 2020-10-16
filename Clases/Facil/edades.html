@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <script>
+            class Person{
+                constructor(nombre, edad){
+                    this.nombre = nombre;
+                    this.edad = edad;
+                }
+
+                compararEdad(person){
+                    if(person.edad > this.edad){
+                        return console.log(person.nombre+" es más grande que yo.");
+                    }else if(person.edad == this.edad){
+                        return console.log(person.nombre+" y yo tenemos la misma edad.");
+                    }else{
+                        return console.log(person.nombre+" es más pequeño que yo.");
+                    }
+                }
+            }
+
+            p1 = new Person("Enrique", 23);
+            p2 = new Person("Oscar", 20);
+            p3 = new Person("Marcos", 23);
+
+            p1.compararEdad(p2);
+            p2.compararEdad(p1);
+            p1.compararEdad(p3);
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <script>
+            class Libro{
+                constructor(titulo, autor){
+                    this.titulo = titulo;
+                    this.autor = autor;
+                }
+
+                getTitulo(){
+                    return `Titulo: ${this.titulo}`;
+                }
+
+                getAutor(){
+                    return `Autor: ${this.autor}`;
+                }
+            }
+
+            const PP = new Libro("Pride and Prejudice", "Jane Austen");
+            const H = new Libro("Hamlet", "William Shakespeare");
+            const WP = new Libro("War and Peace", "Leo Tolstoy");
+            var contador = 1;
+            informacionLibros(PP);
+            informacionLibros(H);
+            informacionLibros(WP);
+
+            function informacionLibros(libro){
+                console.log("Recogida de datos del libro numero "+contador);
+                console.log("----------------------------------");
+                console.log(libro.titulo);
+                console.log(libro.autor);
+                console.log(libro.getTitulo());
+                console.log(libro.getAutor());
+                console.log("----------------------------------");
+                contador++;
+            }
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

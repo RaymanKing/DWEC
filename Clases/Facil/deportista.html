@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <script>
+
+            class Deportista{
+                constructor(nombre, edad, altura, peso){
+                    this.nombre = nombre;
+                    this.edad = edad;
+                    this.altura = altura;
+                    this.peso = peso;
+                }
+
+                getEdad(){
+                    return console.log(this.nombre+" tiene "+this.edad+" años.");
+                }
+
+                getPeso(){
+                    return console.log(this.nombre+" pesa "+this.peso+" kg.");
+                }
+
+                getAltura(){
+                    return console.log(this.nombre+" mide "+this.altura+" cm");
+                }
+            }
+
+            p1 = new Deportista("Enrique", "23", "1.78", "80");
+
+            p1.getAltura();
+            p1.getEdad();
+            p1.getPeso();
+
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>
