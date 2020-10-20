@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Color Combo Box</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            function cambiarColorFondo(arg){
+                const combo = document.getElementById('seleccion');
+                const eleccion = combo.value;                         
+                if(eleccion == 'verde'){
+                    document.body.style.backgroundColor = '#35A01F';
+                }else if(eleccion == 'azul'){
+                    document.body.style.backgroundColor = '#0B48CA';
+                }else if(eleccion == 'rojo'){
+                    document.body.style.backgroundColor = '#D8200A';
+                }else{
+                    document.body.style.backgroundColor = '#E8EF06';
+                }
+            }
+        </script>
+        <label for="cars">Elige un color de fondo:</label>
+
+        <select name="seleccion" id="seleccion">
+          <option value="verde">Verde</option>
+          <option value="azul">Azul</option>
+          <option value="rojo">Rojo</option>
+          <option value="amarillo">Amarillo</option>
+        </select>
+        <button onclick="cambiarColorFondo()">Listo?</button>
+    </body>
+</html>

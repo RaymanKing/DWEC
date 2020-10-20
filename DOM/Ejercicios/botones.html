@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Botones</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            function cambiarInput(idioma){
+                const palabra = document.getElementById('word');
+                if(idioma == 'ingles'){
+                    palabra.value = 'Hello';
+                }else if(idioma == 'andaluz'){
+                    palabra.value = 'Que paaa compareee!!';
+                }else{
+                    palabra.value = 'Que mareinaa churraa! :S';
+                }
+            }
+        </script>
+        <button onclick="cambiarInput('ingles')">Inglés</button>
+        <button onclick="cambiarInput('andaluz')">Andaluz</button>
+        <button onclick="cambiarInput('borracho')">Borracho</button>
+        <input type="text" value="Hola" id="word">
+    </body>
+</html>
