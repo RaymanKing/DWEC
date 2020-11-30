@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Volumen de cono</title>
+    </head>
+    <body>
+        <script>
+            alert('Introduce la altura');
+            let altura = prompt();
+            alert('Introduce el radio');
+            let radio = prompt();
+            let volumen = coneVolume(altura, radio);
+            alert(volumen);
+
+            function coneVolume(h, r){
+                return (Math.PI * (r*r) * h)/3;
+            }
+        </script>
+    </body>
+</html>

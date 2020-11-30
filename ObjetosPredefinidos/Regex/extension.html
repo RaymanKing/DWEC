@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Extraer la extensión</title>
+    </head>
+    <body>
+        <script>
+            function getFilename(path){
+                let absolute = path.split('/');
+                let rute = absolute[absolute.length-1];
+                alert(rute);
+            }
+
+            getFilename("C:/Projects/pil_tests/ascii/edabit.txt");
+        </script>
+    </body>
+</html>

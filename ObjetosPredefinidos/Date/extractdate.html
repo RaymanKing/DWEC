@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Extraer el día de la semana</title>
+    </head>
+    <body>
+        <script>
+
+            function getDay(date){
+                const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+                alert('Hoy estamos a '+dias[new Date(date).getDay()]);
+            }
+
+            getDay("09/04/2016")
+        </script>
+    </body>
+</html>

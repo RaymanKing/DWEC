@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reemplazar las vocales</title>
+    </head>
+    <body>
+        <script>
+            function replaceVowels(str, ch){
+                let reg = new RegExp(/[aeiou]/g);
+                alert(str.replace(reg, ch));
+            }
+
+            replaceVowels("minnie mouse", "?");
+        </script>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>¿Última letra 'N'?</title>
+    </head>
+    <body>
+        <script>
+            function isLastCharacterN(word){
+                let reg = new RegExp('[n]$');
+                let p = word.match(reg);
+                if(p == null){
+                    alert('La última letra no es "n"');
+                }else{
+                    alert('La última letra es "n"');
+                }
+            }
+
+            isLastCharacterN("Aiden");   
+        </script>
+    </body>
+</html>
