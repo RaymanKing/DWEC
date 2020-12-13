@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Listas intercambiables</title>
+        <style type="text/css">
+        .divs{
+            margin: auto;
+            border: 2px black solid;
+            width: 470px;
+            height: 400px;
+        }
+
+        #padre1{
+            margin: 10px;
+            float: left;
+            border: 2px black solid;
+            width: 170px;
+            height: 380px;
+        }
+
+        #padre2{
+            margin: 10px;
+            float: right;
+            border: 2px solid black;
+            width: 170px;
+            height: 380px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="divs">
+            <ul id="padre1">
+                <li onclick="addElement(this)">Número 1</li>
+                <li onclick="addElement(this)">Número 2</li>
+                <li onclick="addElement(this)">Número 3</li>
+                <li onclick="addElement(this)">Número 4</li>
+            </ul>
+            <ul id="padre2">
+                <li onclick="addElement(this)">Número 5</li>
+                <li onclick="addElement(this)">Número 6</li>
+                <li onclick="addElement(this)">Número 7</li>
+                <li onclick="addElement(this)">Número 8</li>
+            </ul>
+        </div>
+        <script>
+            function addElement(element){
+                var lis = document.getElementById('padre1').getElementsByTagName('li');
+                var lis2 = document.getElementById('padre2').getElementsByTagName('li');
+                var contador = 0;
+                var ultimo = 0;
+                for(var i = 0; i < lis.length;i++){
+                    if(lis[i].innerHTML == element.innerHTML){
+                        console.log(lis[i].innerHTML);
+                        console.log(element.innerHTML);
+                        element.parentNode.removeChild(element);
+                        var nodo = document.getElementById('padre2');
+                        nodo.appendChild(element);
+                        ultimo = 2;
+                    }else{
+                        contador++;
+                    }
+                }
+                console.log(contador)
+                console.log(lis.length)
+                if(contador == lis.length && ultimo != 2){
+                    element.parentNode.removeChild(element);
+                    var nodo = document.getElementById('padre1');
+                    nodo.appendChild(element);
+                }
+                    /*else{
+                        contador++;
+                    }
+                    if(contador == lis.length + 1){
+                        element.parentNode.removeChild(element);
+                        var nodo = document.getElementById('padre1');
+                        nodo.appendChild(element);
+                    }*/
+            }
+        </script>
+    </body>
+</html>

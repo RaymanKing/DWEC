@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Amoung us</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+        <style>
+            *{
+                font-family: 'Source Sans Pro', sans-serif;
+            }
+
+            h2{
+                text-align: center;
+                color: white;
+                text-shadow: 2px 2px 2px black;
+            }
+
+            #tablero{
+                margin: auto;
+                border: 2px black solid;
+                width: 1000px;
+                height: 540px;
+                background-color: rgb(119, 205, 240);
+            }
+
+            #votacion{
+                margin: auto;
+                border: 2px black solid;
+                width: 900px;
+                height: 452px;
+            }
+
+            #izquierda{
+                float: left;
+                border: 2px black solid;
+            }
+
+            #derecha{
+                float: right;
+                border: 2px black solid;
+            }
+
+            .players{
+                border: 2px black solid;
+                width: 420px;
+                height: 80px;
+                margin: 5px;
+                background-color: rgb(236, 231, 231);
+            }
+
+            #pjs{
+                width: 62px;
+            }
+
+            .names{
+                float: right;
+                margin-right: 5px;
+                margin-top: 10px;
+                color: white;
+                font-size: 30px;
+                text-shadow: 2px 2px 2px black;
+            }
+
+            .controlyes{
+                margin: auto;
+                width: 20px;
+                margin-top: -25px;
+                height: 20px;
+                background-image: url("images/okey.jpg");
+            }
+
+            .controlno{
+                margin: auto;
+                width: 20px;
+                margin-top: -20px;
+                margin-right: 150px;
+                height: 20px;
+                background-image: url("images/no.jpg");
+            }
+
+            .controlyes:hover{
+                border: 2px black solid;
+            }
+
+            .controlno:hover{
+                border: 2px black solid;
+            }
+        </style>
+    </head>
+    <body>
+        <center>
+            <h1>Amoung us</h1>
+        </center>
+        <div id="tablero">
+            <h2>¿Quién es impostor?</h2>
+            <div id="votacion">
+                <div id="izquierda">
+                    <div class="players">
+                        <img src="images/personaje1.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                    <div class="players">
+                        <img src="images/personaje2.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                    <div class="players">
+                        <img src="images/personaje3.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                    <div class="players">
+                        <img src="images/personaje4.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                    <div class="players">
+                        <img src="images/personaje5.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                </div>
+                <div id="derecha">
+                    <div class="players">
+                        <img src="images/personaje6.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                    <div class="players">
+                        <img src="images/personaje7.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                    <div class="players">
+                        <img src="images/personaje8.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                    <div class="players">
+                        <img src="images/personaje9.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                    <div class="players">
+                        <img src="images/personaje10.png" id="pjs">
+                        <p class="names">Rupertooooooooooo</p>
+                        <div class="controlyes" onclick="votar(1,'yes')"></div>
+                        <div class="controlno" onclick="votar(1,'no')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function votar(number, respuesta){
+                console.log(number+" hola "+respuesta);
+            }
+        </script>
+    </body>
+</html>

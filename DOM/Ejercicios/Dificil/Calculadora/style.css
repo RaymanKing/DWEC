@@ -1,0 +1,32 @@
+#h1{
+    text-align: center;
+}
+
+#input{
+    margin-top: 20px;
+    background-color: green;
+    color: white;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+#div1{
+    background-color: gainsboro;
+    border: black 2px solid;
+    width: 250px;
+    height: 250px;
+}
+
+td{
+    background-color: white;
+    text-align: center;
+    width: 50px;
+    height: 30px;
+    font-weight: bold;
+}
+
+td:hover{
+    background-color: black;
+    color: white;
+}

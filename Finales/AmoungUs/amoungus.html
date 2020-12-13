@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Amoung us</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+        <style>
+            *{
+                font-family: 'Source Sans Pro', sans-serif;
+            }
+            h2{
+                color: white;
+                text-shadow: 2px 2px 2px black;
+                text-align: center;
+            }
+
+            #tablero{
+                margin: auto;
+                border: 2px black solid;
+                width: 1000px;
+                height: 580px;
+                background-color: rgb(119, 205, 240);
+            }
+
+            #votacion{
+                margin: auto;
+                border: 2px black solid;
+                width: 900px;
+                height: 490px;
+            }
+
+            #izquierda{
+                float: left;
+                border: 2px black solid;
+            }
+
+            #derecha{
+                float: right;
+                border: 2px black solid;
+            }
+
+            .players{
+                border: 2px black solid;
+                width: 420px;
+                height: 80px;
+                margin: 5px;
+                background-color: rgb(236, 231, 231);
+            }
+
+            .players_muerto{
+                border: 2px black solid;
+                width: 420px;
+                height: 80px;
+                margin: 5px;
+                background-color: rgb(0, 0, 0);
+            }
+
+            .players_muerto p{
+                color: red;
+                text-shadow: white 2px 2px 2px;
+            }
+
+            #pjs{
+                width: 62px;
+            }
+
+            .names{
+                float: right;
+                margin-right: 5px;
+                margin-top: 10px;
+                color: white;
+                font-size: 30px;
+                text-shadow: 2px 2px 2px black;
+            }
+
+            .controlyes{
+                margin: auto;
+                width: 20px;
+                margin-top: -25px;
+                height: 20px;
+                background-image: url("images/okey.jpg");
+            }
+
+            .controlno{
+                margin: auto;
+                width: 20px;
+                margin-top: -20px;
+                margin-right: 150px;
+                height: 20px;
+                background-image: url("images/no.jpg");
+            }
+
+            #animacion_muerte{
+                visibility: hidden;
+            }
+
+            .controlyes:hover{
+                border: 2px black solid;
+            }
+
+            .controlno:hover{
+                border: 2px black solid;
+            }
+
+            #efects{
+                display: none;
+                autoplay: true;
+            }
+
+            #finish{
+                display: block;
+                margin: auto;
+            }
+        </style>
+    </head>
+    <body id="cuerpo">
+        <center>
+            <h1>Amoung us</h1>
+            <form id="form">
+                <b>Nombre de tu personaje:</b><input type="text" id="nombre">
+                <br><br>
+                <b>Número de jugadores:</b><input type="number" max="10" id="cantidad" value="1">
+                <br><br>
+                <button type="button" onclick="enviarDatos()">Enviar</button>
+            </form>
+        </center>
+        <center>
+            <div id="animacion_muerte">
+                <video width="600" height="400" controls>
+                    <source src="video/muerte.mp4" type="video/mp4">
+                </video>
+                <br><br>
+                <button type="button" onclick="ir_tablero()">Votación</button>
+            </div>
+        </center>
+        <script>
+            let nombre = "";
+            let jugadores = 0;
+            let muertos = 1;
+            function enviarDatos(){
+                nombre = document.getElementById('nombre').value;
+                jugadores = document.getElementById('cantidad').value;
+                if(nombre.length > 0 && jugadores >= 4 && jugadores <= 10){
+                    let form = document.getElementById('form');
+                    let padre = form.parentNode;
+                    padre.removeChild(form);
+                    alert('Listo pues a jugar!');
+                    document.getElementById('animacion_muerte').style.visibility='visible';
+                }else{
+                    alert('Por favor introduce un nombre y mínimo 4 jugadores');
+                }
+            }
+
+            function ir_tablero(){
+                let ani = document.getElementById('animacion_muerte');
+                let papa = ani.parentNode;
+                papa.removeChild(ani);
+                // MONTAR TABLERO
+                let body = document.getElementById('cuerpo');
+                // ---
+                let padre_tablero = document.createElement('div');
+                padre_tablero.setAttribute('id','tablero');
+                let h = document.createElement('h2');
+                h.innerHTML = '¿Quién es impostor?';
+                padre_tablero.appendChild(h);
+                body.appendChild(padre_tablero);
+                let votacion = document.createElement('div');
+                votacion.setAttribute('id','votacion');
+                padre_tablero.appendChild(votacion);
+                // ORGANIZACION DE PARTICIPANTES
+                let total = parseInt(jugadores) + 1;
+                let num_foto = 1;
+                let jugador = 0;
+                let control = 0;
+                let muerto = 0;
+                let arr_jugadores = ['Ruperto','Ashar',nombre,'Petra','Pepe','Etesech','El Balazo','Dolores Delano','Ines Esario','Go Chat'];
+                for(let i = 1; i < total; i++){
+                    let izquierda = document.createElement('div');
+                    izquierda.setAttribute('id','izquierda');
+                    //Añadir div izquierda
+                    let jg = document.createElement('div');
+                    jg.className = 'players';
+                    // Añadir todo lo de abajo al div jg
+                    let image = document.createElement('img');
+                    image.src='images/personaje'+num_foto+'.png';
+                    image.setAttribute('id','pjs');
+                    jg.appendChild(image);
+                    let p = document.createElement('p');
+                    p.className = 'names';
+                    p.innerHTML = arr_jugadores[jugador];
+                    jg.appendChild(p);
+                    let yes = document.createElement('div');
+                    yes.className = 'controlyes';
+                    
+                    yes.setAttribute('id','delete'+num_foto);
+                    yes.setAttribute('onclick','votar('+num_foto+',"yes",this.parentNode)');
+                    jg.appendChild(yes);
+                    let no = document.createElement('div');
+                    no.className = 'controlno';
+                    no.setAttribute('id','delete'+num_foto);
+                    no.setAttribute('onclick','votar('+num_foto+',"no")');
+                    jg.appendChild(no);
+
+                    izquierda.appendChild(jg);
+                    votacion.appendChild(izquierda);
+                    control++;
+                    num_foto++;
+                    jugador++;
+                    if(control != jugadores){
+                        if(muerto == 0){
+                            let derecha = document.createElement('div');
+                            derecha.setAttribute('id','derecha');
+                            //Añadir div derecha
+                            let jg = document.createElement('div');
+                            jg.className = 'players_muerto';
+                            // Añadir todo lo de abajo al div jg
+                            let image = document.createElement('img');
+                            image.src='images/personaje'+num_foto+'.png';
+                            image.setAttribute('id','pjs');
+                            jg.appendChild(image);
+                            let p = document.createElement('p');
+                            p.className = 'names';
+                            p.innerHTML = arr_jugadores[jugador];
+                            jg.appendChild(p);
+                            derecha.appendChild(jg);
+                            votacion.appendChild(derecha);
+                            control++;
+                            i++;
+                            num_foto++;
+                            jugador++;
+                            muerto = 1;
+                            console.log(jg);
+                        }else{
+                            let derecha = document.createElement('div');
+                            derecha.setAttribute('id','derecha');
+                            //Añadir div derecha
+                            let jg = document.createElement('div');
+                            jg.className = 'players';
+                            // Añadir todo lo de abajo al div jg
+                            let image = document.createElement('img');
+                            image.src='images/personaje'+num_foto+'.png';
+                            image.setAttribute('id','pjs');
+                            jg.appendChild(image);
+                            let p = document.createElement('p');
+                            p.className = 'names';
+                            p.innerHTML = arr_jugadores[jugador];
+                            jg.appendChild(p);
+                            let yes = document.createElement('div');
+                            yes.className = 'controlyes';
+                            yes.setAttribute('onclick','votar('+num_foto+',"yes",this.parentNode)');
+                            yes.setAttribute('id','delete'+num_foto);
+                            jg.appendChild(yes);
+                            let no = document.createElement('div');
+                            no.className = 'controlno';
+                            no.setAttribute('onclick','votar('+num_foto+',"no")');
+                            no.setAttribute('id','delete'+num_foto);
+                            jg.appendChild(no);
+                            derecha.appendChild(jg);
+                            votacion.appendChild(derecha);
+                            control++;
+                            i++;
+                            num_foto++;
+                            jugador++;
+                            console.log(jg);
+                        }
+                    }
+                }
+                // EFECTOS
+                let efect = document.createElement('iframe');
+                efect.setAttribute('src','sounds/reportar.mp3');
+                efect.setAttribute('id','efects');
+                body.appendChild(efect);
+            }
+
+            function sleep(milliseconds) {
+                var start = new Date().getTime();
+                for (var i = 0; i < 1e7; i++) {
+                    if ((new Date().getTime() - start) > milliseconds) {
+                        break;
+                    }
+                }
+            }
+
+            function votar(number, respuesta, pj){
+                console.log(pj)
+                console.log(jugadores)
+                console.log(muertos)
+                if(respuesta == 'no'){
+                    alert('Has decidido mejor no votar a este no? Piénsatelo bien...');
+                }else{
+                    if(number == 1){
+                        let cuerpo = document.getElementById('cuerpo');
+                        let efect = document.createElement('iframe');
+                        efect.setAttribute('src','sounds/votacion.mp3');
+                        efect.setAttribute('id','efects');
+                        cuerpo.appendChild(efect);
+                        sleep(350000);
+                        let tablero = document.getElementById('tablero');
+                        let padre = tablero.parentNode;
+                        padre.removeChild(tablero);
+                        let win = document.createElement('img');
+                        win.setAttribute('src','images/tripulantes.png');
+                        win.setAttribute('id','finish');
+                        cuerpo.appendChild(win);
+                        let sound = document.createElement('iframe');
+                        sound.setAttribute('src','sounds/victory.mp3');
+                        sound.setAttribute('id','efects');
+                        cuerpo.appendChild(sound);              
+                    }else{
+                        let cuerpo = document.getElementById('cuerpo');
+                        let efect = document.createElement('iframe');
+                        efect.setAttribute('src','sounds/votacion.mp3');
+                        efect.setAttribute('id','efects');
+                        cuerpo.appendChild(efect);
+                        sleep(350000);
+                        pj.className = '';
+                        pj.className = 'players_muerto';
+                        let yes = document.getElementById('delete'+number);
+                        pj.removeChild(yes);
+                        let no = document.getElementById('delete'+number);
+                        pj.removeChild(no);
+                        muertos++;
+                        if(muertos == jugadores - 2){
+                            let tablero = document.getElementById('tablero');
+                            let padre = tablero.parentNode;
+                            padre.removeChild(tablero);
+                            let win = document.createElement('img');
+                            win.setAttribute('src','images/impostor.png');
+                            win.setAttribute('id','finish');
+                            cuerpo.appendChild(win);
+                            let sound = document.createElement('iframe');
+                            sound.setAttribute('src','sounds/lose.mp3');
+                            sound.setAttribute('id','efects');
+                            cuerpo.appendChild(sound);  
+                        }
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

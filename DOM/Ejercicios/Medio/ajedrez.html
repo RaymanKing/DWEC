@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ajedrez</title>
+        <style>
+            .white{
+                background-color: aliceblue;
+                width: 20px;
+                height: 20px;
+            }
+
+            .black{
+                background-color: black;
+                width: 20px;
+                height: 20px;
+            }
+
+            .tablero{
+                border: 1px black solid;
+                margin: auto;
+                width: 400px;
+                height: 400px;
+            }
+        </style>
+    </head>
+    <body>
+        <center>
+            <button onclick="pintarAjedrez()">Pintar ajedrez</button>
+        </center>
+        <script>
+            function pintarAjedrez(){
+                let tablero = document.createElement('table');
+                tablero.className = 'tablero';
+                for(var i = 0; i < 8; i++){
+                    let tr = document.createElement('tr');
+                    for(var z = 0; z < 8; z++){
+                        let td = document.createElement('td');
+                        if(i%2 == z%2){
+                            td.className = 'white';
+                        }else{
+                            td.className = 'black';
+                        }
+                        tr.appendChild(td);
+                    }
+                    tablero.appendChild(tr);
+                }
+                document.body.appendChild(tablero);    
+            }
+        </script>
+    </body>
+</html>

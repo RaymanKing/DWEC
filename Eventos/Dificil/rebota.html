@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rebota</title>
+        <style>
+            #imagen{
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="betis.png" id="imagen"></div>
+        <script>    
+            var y=0;           
+            var x=0;
+            var controlY=500;  
+            var controlX=1;  
+            var velocidad=1;    
+            setInterval("actualizar()", 4000);
+            function actualizar(){
+                console.log('llego')
+                location.reload();
+                mover();
+            }
+
+            function mover(){
+                let imagen = document.getElementById('imagen').style.margin = controlY+'px';
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calendario</title>
+        <style>
+            body{
+                background-color: gray;
+            }
+
+            #calendar td{
+                border: black 2px solid;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            #calendar :first-child td{
+                background-color: rgb(81, 243, 243);
+            }
+
+            .today{
+                background-color: green;
+            }
+
+            .weekend{
+                background-color: red;
+            }
+
+            .normal{
+                background-color: white;
+            }
+
+            #year{
+                font-size: 40px;    
+            }
+
+            #month{
+                font-size: 40px;
+            }
+        </style>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
+    <body>
+        <center>
+            <h1>Calendario</h1>
+        </center>
+        <center>
+            <div id="div">
+
+                <table id="calendar">
+                    <tr>
+                        <td>Lunes</td>
+                        <td>Martes</td>
+                        <td>Miercoles</td>
+                        <td>Jueves</td>
+                        <td>Viernes</td>
+                        <td>Sabado</td>
+                        <td>Domingo</td>
+                    </tr>
+                </table>
+            </div>
+        </center>
+        <center>
+            <div>
+                <h3 id="year"></h3><h3 id="month"></h3>
+            </div>
+            <div id="boton">
+                <button type="button" onclick="mostrar(0)">-</button><button type="button" onclick="mostrar(1)">+</button>
+            </div>
+        </center>
+        <script>
+            let today = new Date();
+            let calendar = document.getElementById('calendar');
+            const days = ['domingo','lunes','martes','miercoles','jueves','viernes','sabado'];
+            const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+            let month = today.getMonth();
+            let day = today.getDate();
+            let year = today.getFullYear();
+            let semanas = 0;
+            
+            window.onload = function (){
+                document.getElementById('month').innerHTML = meses[month];
+                let hoy = day;
+                document.getElementById('year').innerHTML = year;
+                let total_days = diasMes(month+1,year);
+                let first_day = 1;
+                
+                for(let i = 0; i < 7; i++){
+                    let tr = document.createElement('tr');
+                    tr.className = 'delete';
+                    semanas++;
+                    for(let o = 0; o < 7; o++){
+                        let p = diaSemana(first_day,month,year);
+                        if(p == 0){
+                            p = 6;
+                        }else{
+                            p--;
+                        }
+                        let td = document.createElement('td');
+                        if(p == o){
+                            td.innerHTML = first_day;
+                            if(first_day==hoy){
+                                td.className = 'today';
+                            }else if(o == 5 || o == 6){
+                                td.className = 'weekend';
+                            }else{
+                                td.className = 'normal';
+                            }
+                            first_day++;
+                            day++;
+                        }
+                        if(td.innerHTML == ''){
+                            td.style.visibility="hidden";
+                        }
+                        tr.appendChild(td);
+                        if(first_day-1 == total_days){
+                            i = 6;
+                            o = 6;
+                        }
+                    }
+                    calendar.appendChild(tr);
+                }
+            }
+
+            function mostrar(number){
+                if(number == 0){
+                    month--;
+                    if(month < 0){
+                        month = 11;
+                        year--;
+                    }
+                }else{
+                    month++;
+                    if(month > 11){
+                        month = 0;
+                        year++;
+                    }
+                }
+                let last = document.getElementsByClassName('delete');
+
+                for(let i = 0; i < semanas; i++){
+                    let padre = last[0].parentNode;
+                    padre.removeChild(last[0]);
+                    
+                }
+                semanas = 0;
+                document.getElementById('month').innerHTML = meses[month];
+                let hoy = day;
+                document.getElementById('year').innerHTML = year;
+                let total_days = diasMes(month+1,year);
+                let first_day = 1;
+
+                for(let i = 0; i < 7; i++){
+                    let tr = document.createElement('tr');
+                    tr.className = 'delete';
+                    semanas++;
+                    for(let o = 0; o < 7; o++){
+                        let p = diaSemana(first_day,month,year);
+                        if(p == 0){
+                            p = 6;
+                        }else{
+                            p--;
+                        }
+                        let td = document.createElement('td');
+                        if(p == o){
+                            td.innerHTML = first_day;
+                            let mismo = new Date(month+1+'/'+first_day+'/'+year);
+                            console.log();
+                            console.log(today);
+                            if(today.getMonth() == mismo.getMonth() && today.getDate() == mismo.getDate() && today.getFullYear() == mismo.getFullYear()){
+                                td.className = 'today';
+                            }else if(o == 5 || o == 6){
+                                td.className = 'weekend';
+                            }else{
+                                td.className = 'normal';
+                            }
+                            first_day++;
+                            day++;
+                        }
+                        if(td.innerHTML == ''){
+                            td.style.visibility="hidden";
+                        }
+                        tr.appendChild(td);
+                        if(first_day-1 == total_days){
+                            i = 6;
+                            o = 6;
+                        }
+                    }
+                    calendar.appendChild(tr);
+                }   
+            }
+
+            function diaSemana(dia, mes, anio){
+                return new Date(mes+1+'/'+dia+'/'+anio).getDay();
+            }
+
+            function diasMes(mes, anio){
+                return new Date(anio, mes, 0).getDate();
+            }
+        </script> 
+    </body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tres en raya</title>
+        <style>
+            #marcadores{
+                visibility: hidden;
+                margin-top: 20px;
+                height: 30px;
+            }
+
+            #jugador1{
+                float: left;
+            }
+
+            #jugador1 h3{
+                margin-left: 20px;
+                display: inline;
+            }
+
+            #jugador2 h3{
+                margin-right: 20px;
+                display: inline;
+            }
+
+            #jugador2{
+                float: right;
+            }
+
+            #divtablero{
+                visibility: hidden;
+                margin-top: 20px;
+            }
+            #tablero{
+                width: 500px;
+                height: 400px;
+                border: 2px black solid;
+            }
+
+            #tablero tr td{
+                border: 2px black solid;
+            }
+
+            #turnos{
+                visibility: hidden;
+            }
+
+            #bt{
+                visibility: hidden;
+            }
+        </style>
+    </head>
+    <body id="cuerpo">
+        <center>
+            <h1>Tres en Raya</h1>
+            <form id="formulario">    
+                <p>Introduce tu nombre:<input type="text" id="name" value=""></p>
+                <input type="radio" name="modo" value="jugador" checked>PvP
+                <input type="radio" name="modo" value="maquina">PvG
+                <br><br>
+                <button type="button" onclick="start()">Start</button>
+            </form>
+        </center>
+        <div id="marcadores">
+            <div id="jugador1">
+                <h3 id="player1"></h3>
+                <h3 id="points1"></h3>
+            </div>
+            <div>
+            </div>
+            <div id="jugador2">
+                <h3 id="points2"></h3>
+                <h3 id="player2"></h3>
+            </div>
+        </div>
+        <center>
+            <div id="turnos">
+                <h3>Turno</h3>
+                <h3 id="turno"></h3>
+            </div>
+        </center>
+        <center>
+            <div id="divtablero">
+                <table id="tablero">
+                    <tr>
+                        <td id="1" onclick="pintarCelda(1)"></td>
+                        <td id="2" onclick="pintarCelda(2)"></td>
+                        <td id="3" onclick="pintarCelda(3)"></td>
+                    </tr>
+                    <tr>
+                        <td id="4" onclick="pintarCelda(4)"></td>
+                        <td id="5" onclick="pintarCelda(5)"></td>
+                        <td id="6" onclick="pintarCelda(6)"></td>
+                    </tr>
+                    <tr>
+                        <td id="7" onclick="pintarCelda(7)"></td>
+                        <td id="8" onclick="pintarCelda(8)"></td>
+                        <td id="9" onclick="pintarCelda(9)"></td>
+                    </tr>
+                </table>
+            </div>
+        </center>
+        <center>
+            <button type="button" id="bt" onclick="restart()">Reiniciar</button>
+        </center>
+
+        <script>
+            let celdasJugador1 = [];
+            let celdasJugador2 = [];
+            let mano = 1;
+            let marcador1 = document.getElementById('points1');
+            let marcador2 = document.getElementById('points2');
+            let jugador1 = document.getElementById('player1');
+            let jugador2 = document.getElementById('player2');
+            let winMachine = 0;
+            let intento = 0;
+            function start(){
+                let name = document.getElementById('name').value;
+                let modo = document.getElementsByName('modo');
+                let mod = '';
+                for(let i = 0; i < modo.length; i++){
+                    if(modo[i].checked){
+                        mod = modo[i];
+                    }
+                }
+                if(name.length == 0){
+                    alert('Por favor introduce un nombre');
+                }else{
+                    let formulario = document.getElementById('formulario');
+                    let padre = formulario.parentNode;
+                    padre.removeChild(formulario);
+                    if(mod.value == 'jugador'){
+                        let cuerpo = document.body;
+                        let name2 = prompt('Introduce el nombre del jugador 2');
+                        document.getElementById('bt').style.visibility='visible';
+                        document.getElementById('divtablero').style.visibility='visible';
+                        document.getElementById('marcadores').style.visibility='visible';
+                        document.getElementById('turnos').style.visibility='visible';
+                        let jugador1 = document.getElementById('player1');
+                        jugador1.innerHTML = name;
+                        let points1 = document.getElementById('points1');
+                        points1.innerHTML = 0;
+                        let jugador2 = document.getElementById('player2');
+                        jugador2.innerHTML = name2;
+                        let points2 = document.getElementById('points2');
+                        points2.innerHTML = 0;
+                        document.getElementById('turno').innerText = jugador1.innerText;
+                    }else{
+                        let cuerpo = document.body;
+                        document.getElementById('bt').style.visibility='visible';
+                        document.getElementById('divtablero').style.visibility='visible';
+                        document.getElementById('marcadores').style.visibility='visible';
+                        document.getElementById('turnos').style.visibility='visible';
+                        let jugador1 = document.getElementById('player1');
+                        jugador1.innerHTML = name;
+                        let points1 = document.getElementById('points1');
+                        points1.innerHTML = 0;
+                        let jugador2 = document.getElementById('player2');
+                        jugador2.innerHTML = 'Máquina';
+                        let points2 = document.getElementById('points2');
+                        points2.innerHTML = 0;
+                        document.getElementById('turno').innerText = jugador1.innerText;
+                        changeClick();
+                    }
+                }
+            }
+
+            function changeClick(){
+                for(let i = 1; i < 10; i++){
+                    document.getElementById(i).setAttribute('onclick','pintarVsMachine('+i+')');
+                }
+            }
+
+            function pintarVsMachine(numero){
+                let celda = document.getElementById(numero);
+                if(winMachine == 0){
+                    if(celdasJugador1.includes(numero) || celdasJugador2.includes(numero)){
+                        alert('Esta celda está ocupada! Vuelve a elegir');
+                        intento = 1;
+                    }else{
+                        celda.style.backgroundColor = '#008000';
+                        celdasJugador1.push(numero);
+                        document.getElementById('turno').innerText = jugador2.innerText;
+                        intento = 0;
+                    }if(celdasJugador1.includes(1) && celdasJugador1.includes(2) && celdasJugador1.includes(3) ||
+                        celdasJugador1.includes(4) && celdasJugador1.includes(5) && celdasJugador1.includes(6) ||
+                        celdasJugador1.includes(7) && celdasJugador1.includes(8) && celdasJugador1.includes(9) ||
+                        celdasJugador1.includes(1) && celdasJugador1.includes(4) && celdasJugador1.includes(7) ||
+                        celdasJugador1.includes(2) && celdasJugador1.includes(5) && celdasJugador1.includes(8) ||
+                        celdasJugador1.includes(3) && celdasJugador1.includes(6) && celdasJugador1.includes(9) ||
+                        celdasJugador1.includes(1) && celdasJugador1.includes(5) && celdasJugador1.includes(9) ||
+                        celdasJugador1.includes(7) && celdasJugador1.includes(5) && celdasJugador1.includes(3)){
+                        alert('Gano el jugador '+jugador1.innerText);
+                        marcador1.innerHTML = parseInt(marcador1.innerHTML) + 1;
+                        limpiarM(0);
+                    }else if(intento == 0 && (celdasJugador1.length < 5 && celdasJugador2.length < 5)){
+                        let rep = new Boolean;
+                        while(rep){
+                            let eleccion = Math.floor(Math.random() * (10 - 1) + 1);
+                            if(!(celdasJugador1.includes(eleccion)) && !(celdasJugador2.includes(eleccion))){
+                                console.log(eleccion)
+                                document.getElementById(eleccion).style.backgroundColor = '#FF0000';
+                                celdasJugador2.push(eleccion);
+                                document.getElementById('turno').innerText = jugador1.innerText;
+                                rep = false;
+                            }if(celdasJugador2.includes(1) && celdasJugador2.includes(2) && celdasJugador2.includes(3) ||
+                                celdasJugador2.includes(4) && celdasJugador2.includes(5) && celdasJugador2.includes(6) ||
+                                celdasJugador2.includes(7) && celdasJugador2.includes(8) && celdasJugador2.includes(9) ||
+                                celdasJugador2.includes(1) && celdasJugador2.includes(4) && celdasJugador2.includes(7) ||
+                                celdasJugador2.includes(2) && celdasJugador2.includes(5) && celdasJugador2.includes(8) ||
+                                celdasJugador2.includes(3) && celdasJugador2.includes(6) && celdasJugador2.includes(9) ||
+                                celdasJugador2.includes(1) && celdasJugador2.includes(5) && celdasJugador2.includes(9) ||
+                                celdasJugador2.includes(7) && celdasJugador2.includes(5) && celdasJugador2.includes(3)){
+                                    alert('Gano el jugador '+jugador2.innerText);
+                                    marcador2.innerHTML = parseInt(marcador2.innerHTML) + 1;
+                                    limpiarM(1);
+                                    winMachine = 1;
+                            }
+                        }
+
+                    }
+                }else{
+                    let eleccion = Math.floor(Math.random() * (10 - 1) + 1);
+                    document.getElementById(eleccion).style.backgroundColor = '#FF0000';
+                    celdasJugador2.push(eleccion);
+                    document.getElementById('turno').innerText = jugador1.innerText;
+                    winMachine = 0;
+                }if(celdasJugador1.length == 5 && celdasJugador2.length == 4 || celdasJugador1.length == 4 && celdasJugador2.length == 5){
+                    alert('EMPATE!');
+                    limpiarM(0);
+                }
+            }
+
+            function limpiarM(winner){
+                for(let i = 1; i < 10; i++){
+                    let celda = document.getElementById(i).style.backgroundColor='#FFFFFF';
+                }
+                celdasJugador1 = [];
+                celdasJugador2 = [];
+                if(winner == 0){
+                    document.getElementById('turno').innerText = jugador1.innerText;
+                }else{
+                    document.getElementById('turno').innerText = jugador2.innerText;
+                }
+            }
+
+            function restart(){
+                for(let i = 1; i < 10; i++){
+                    let celda = document.getElementById(i).style.backgroundColor='#FFFFFF';
+                }
+                celdasJugador1 = [];
+                celdasJugador2 = [];
+                marcador1.innerHTML = 0;
+                marcador2.innerHTML = 0;
+                mano = 1;
+                document.getElementById('turno').innerText = jugador1.innerText;
+            }
+
+            function limpiar(jg){
+                for(let i = 1; i < 10; i++){
+                    let celda = document.getElementById(i).style.backgroundColor='#FFFFFF';
+                }
+                celdasJugador1 = [];
+                celdasJugador2 = [];
+                mano = parseInt(mano) - 1;
+                if(jg == 1){
+                    document.getElementById('turno').innerText = jugador1.innerText;
+                }else{
+                    document.getElementById('turno').innerText = jugador2.innerText;
+                }
+            }
+
+            function pintarCelda(numero){
+                let celda = document.getElementById(numero);
+                if(mano%2==0){
+                    if(celdasJugador1.includes(numero) || celdasJugador2.includes(numero)){
+                        alert('Esta celda está ocupada! Vuelve a elegir');
+                    }else{
+                        celda.style.backgroundColor = '#FF0000';
+                        mano = parseInt(mano) + 1;
+                        celdasJugador2.push(numero);
+                        document.getElementById('turno').innerText = jugador1.innerText;
+                    }if(celdasJugador2.includes(1) && celdasJugador2.includes(2) && celdasJugador2.includes(3) ||
+                        celdasJugador2.includes(4) && celdasJugador2.includes(5) && celdasJugador2.includes(6) ||
+                        celdasJugador2.includes(7) && celdasJugador2.includes(8) && celdasJugador2.includes(9) ||
+                        celdasJugador2.includes(1) && celdasJugador2.includes(4) && celdasJugador2.includes(7) ||
+                        celdasJugador2.includes(2) && celdasJugador2.includes(5) && celdasJugador2.includes(8) ||
+                        celdasJugador2.includes(3) && celdasJugador2.includes(6) && celdasJugador2.includes(9) ||
+                        celdasJugador2.includes(1) && celdasJugador2.includes(5) && celdasJugador2.includes(9) ||
+                        celdasJugador2.includes(7) && celdasJugador2.includes(5) && celdasJugador2.includes(3)){
+                        alert('Gano el jugador '+jugador2.innerText);
+                        marcador2.innerHTML = parseInt(marcador2.innerHTML) + 1;
+                        limpiar(2);
+                    }
+                }else{
+                    if(celdasJugador1.includes(numero) || celdasJugador2.includes(numero)){
+                        alert('Esta celda está ocupada! Vuelve a elegir');
+                    }else{
+                        celda.style.backgroundColor = '#008000';
+                        mano = parseInt(mano) + 1;
+                        celdasJugador1.push(numero);
+                        document.getElementById('turno').innerText = jugador2.innerText;
+                    }if(celdasJugador1.includes(1) && celdasJugador1.includes(2) && celdasJugador1.includes(3) ||
+                        celdasJugador1.includes(4) && celdasJugador1.includes(5) && celdasJugador1.includes(6) ||
+                        celdasJugador1.includes(7) && celdasJugador1.includes(8) && celdasJugador1.includes(9) ||
+                        celdasJugador1.includes(1) && celdasJugador1.includes(4) && celdasJugador1.includes(7) ||
+                        celdasJugador1.includes(2) && celdasJugador1.includes(5) && celdasJugador1.includes(8) ||
+                        celdasJugador1.includes(3) && celdasJugador1.includes(6) && celdasJugador1.includes(9) ||
+                        celdasJugador1.includes(1) && celdasJugador1.includes(5) && celdasJugador1.includes(9) ||
+                        celdasJugador1.includes(7) && celdasJugador1.includes(5) && celdasJugador1.includes(3)){
+                        alert('Gano el jugador '+jugador1.innerText);
+                        marcador1.innerHTML = parseInt(marcador1.innerHTML) + 1;
+                        limpiar(1);
+                    }
+                }
+                if(celdasJugador1.length == 5 && celdasJugador2.length == 4 || celdasJugador1.length == 4 && celdasJugador2.length == 5){
+                    alert('EMPATE!');
+                    if(mano%2==0){
+                        mano = parseInt(mano) + 1;
+                        limpiar(2);
+                    }else{
+                        mano = parseInt(mano) + 1;
+                        limpiar(1);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

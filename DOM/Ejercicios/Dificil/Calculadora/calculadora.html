@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculadora</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1 id="h1">Calculadora Rayman</h1>
+        <center>
+        <div id="div1">
+            <table>
+                <tr>
+                    <input id="input" type="text" value="" readonly="readonly">
+                </tr>
+                <tr>
+                    <td onclick="insertNumber(7)">7</td>
+                    <td onclick="insertNumber(8)">8</td>
+                    <td onclick="insertNumber(9)">9</td>
+                    <td onclick="addSignos(1)">+</td>
+                </tr>
+                <tr>
+                    <td onclick="insertNumber(4)">4</td>
+                    <td onclick="insertNumber(5)">5</td>
+                    <td onclick="insertNumber(6)">6</td>
+                    <td onclick="addSignos(2)">-</td>
+                </tr>
+                <tr>
+                    <td onclick="insertNumber(1)">1</td>
+                    <td onclick="insertNumber(2)">2</td>
+                    <td onclick="insertNumber(3)">3</td>
+                    <td onclick="addSignos(3)">*</td>
+                </tr>
+                <tr>
+                    <td onclick="limpiar()">CE</td>
+                    <td onclick="insertNumber(0)">0</td>
+                    <td onclick="operar()">=</td>
+                    <td onclick="addSignos(4)">%</td>
+                </tr>
+            </table>
+        </div>
+        </center>
+        <script>
+            list = ["+","-","*","%"];
+            resultant = 0;
+            contador = 0;
+            numero1 = 0;
+            numero2 = 0;
+            function insertNumber(numero){
+                console.log(numero1+" num1")
+                console.log(numero2+" num2")
+                var input = document.getElementById('input');
+                if(resultant != 0){
+                    alert('Ya tienes un número con el que operar, realiza una operación o limpia "CE" el resultado.')
+                }else{
+                    input.value = input.value + numero;
+                }
+            }
+
+            function limpiar(){
+                var input = document.getElementById('input');
+                input.value = "";
+                contador = 0;
+                resultant = 0;
+                numero1 = 0;
+                numero2 = 0;
+            }
+
+            function addSignos(signo){
+                var input = document.getElementById('input');
+                if(contador == 0){
+                    for(var i = 0; i < input.value.length;i++){
+                        if(input.value.charAt(i) != list){
+                            contador++;
+                        }
+                    }
+                }        
+                if(contador == input.value.length){
+                    if(signo == 1){
+                        numero1 = input.value;
+                        input.value = input.value + "+";
+                        contador = 1;
+                        resultant = 0;
+                    }else if(signo == 2){
+                        numero1 = input.value;
+                        input.value = input.value + "-";
+                        contador = 1;
+                        resultant = 0;
+                    }else if(signo == 3){
+                        numero1 = input.value;
+                        input.value = input.value + "*";
+                        contador = 1;
+                        resultant = 0;
+                    }else if(signo == 4){
+                        numero1 = input.value;
+                        input.value = input.value + "%";
+                        contador = 1;
+                        resultant = 0;
+                    }
+                }
+            }
+
+            function operar(){
+                operacion = 0;
+                if(contador == 1){
+                    for(let i = 0; i < input.value.length; i++){
+                        for(let o = 0; o < list.length; o++){
+                            if(input.value.charAt(i) == list[o]){
+                                numero2 = input.value.slice(i+1);
+                                operacion = o;
+                            }
+                        }
+                    }
+                    if(operacion == 0){
+                        resultado = parseInt(numero1) + parseInt(numero2);
+                        input.value = resultado;
+                        contador = 0;
+                        resultant = 1;
+                        numero1 = resultado;
+                    }else if(operacion == 1){
+                        resultado = parseInt(numero1) - parseInt(numero2);
+                        input.value = resultado;
+                        contador = 0;
+                        resultant = 1;
+                        numero1 = resultado;
+                    }else if(operacion == 2){
+                        resultado = parseInt(numero1) * parseInt(numero2);
+                        input.value = resultado;
+                        contador = 0;
+                        resultant = 1;
+                        numero1 = resultado;
+                    }else{
+                        resultado = parseInt(numero1) / parseInt(numero2);
+                        input.value = resultado;
+                        contador = 0;
+                        resultant = 1;
+                        numero1 = resultado;
+                    }
+                }
+                
+            }
+        </script>
+    </body>
+</html>

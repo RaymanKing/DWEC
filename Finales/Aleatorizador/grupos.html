@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Aleatorizador de grupos</title>
+        <style>
+            #contadores input,button{
+                margin: 8px;
+            }
+
+            #rellenar input, button{
+                margin: 10px;
+            }
+
+            #rellenar{
+                visibility: hidden;
+            }
+
+            #generar{
+                visibility: hidden;
+            }
+        </style>
+    </head>
+    <body id="cuerpo">
+        <center>
+            <h1>Aleatorizador de grupos</h1>
+        </center>
+        <center>
+            <form id="contadores">
+                <b>Número total de grupos:</b><input type="text" id="num_grupos">
+                <br>
+                <b>Número de componentes por grupo:</b><input type="text" id="num_por_grupo">
+                <br>
+                <button type="button" onclick="numeros()">Enviar datos</button>
+            </form>
+        </center>
+        <center>
+            <form id="rellenar">
+                <b>Introducir nombre:</b><input type="text" id="nombres">
+                <br>
+                <button type="button" onclick="introducir()">Enviar</button>
+            </form>
+        </center>
+        <center>
+            <button id="generar" onclick="organizarGrupos()" type="button">Generar grupos</button>
+        </center>
+        <center>
+            <div id="grupos"></div>
+        </center>
+        <script>
+            let numeroGrupos = 0;
+            let componentesGrupos = 0;
+            let componentes = [];
+            let contador = 0;
+            let total = 0;
+
+            function numeros(){
+                let reg = new RegExp(/^([0-9])*$/);
+                numeroGrupos = document.getElementById('num_grupos').value;
+                componentesGrupos = document.getElementById('num_por_grupo').value;
+                if(reg.test(numeroGrupos) == true && reg.test(componentesGrupos) == true && numeroGrupos.length != 0 && componentesGrupos.length != 0){
+                    alert('Perfecto continuaremos con la introducción de los datos');
+                    let contadores = document.getElementById('contadores');
+                    let padre = contadores.parentNode;
+                    padre.removeChild(contadores);
+                    document.getElementById('rellenar').style.visibility = 'visible';                   
+                }else{
+                    alert('Por favor introduce solo números');
+                }
+            }
+            function introducir(){
+                total = numeroGrupos * componentesGrupos;
+                if(contador < total){
+                    let nombre = document.getElementById('nombres').value;
+                    componentes.push(nombre);
+                    contador++;
+                    document.getElementById('nombres').value = "";
+                    if(contador == total){
+                        let form = document.getElementById('rellenar');
+                        let padre = form.parentNode;
+                        padre.removeChild(form);
+                        alert('Listo pulsa el botón de generar cuando estes listo');
+                        document.getElementById('generar').style.visibility = 'visible';
+                    }
+                }
+            }
+
+            function organizarGrupos(){
+                let div = document.getElementById('grupos');
+                let loop = total;
+                let grupo = [];
+                let n_grupo = 1;
+                for(let i = 0; i < total; i++){
+                    let frase = "";
+                    let aleatorio = Math.floor(Math.random() * (loop - 0) + 0);
+                    let name = componentes[aleatorio];
+                    componentes.splice(aleatorio,1);
+                    grupo.push(name);
+                    loop--;
+                    if(grupo.length == componentesGrupos){
+                        let h = document.createElement('h3');
+                        for(let o = 0; o < componentesGrupos; o++){
+                            frase = frase+" "+grupo[o]+",";
+                        }
+                        grupo = [];
+                        frase = "Grupo "+n_grupo+": "+frase;
+                        frase = frase.substring(0, frase.length - 1);
+                        h.innerHTML = frase;
+                        div.appendChild(h);
+                        n_grupo++;
+                    }
+                }
+                let boton = document.getElementById('generar');
+                let padre = boton.parentNode;
+                padre.removeChild(boton);
+            }
+        </script>
+    </body>
+</html>

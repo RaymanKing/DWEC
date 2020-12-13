@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rellenar tabla</title>
+        <style>
+            #tabla{
+                margin-top: 30px;
+                border: 2px black solid;
+                font-size: 30px;
+            }
+
+            #tabla td{
+                width: 200px;
+                border: 2px black solid;
+            }
+        </style>
+    </head>
+    <body>
+        <form>
+            <p>Nombre:<input type="text" name="nombre" size="40" value="" id="nombre"></p>
+            <p>Apellidos:<input type="text" name="apellidos" size="40" id="apellidos"></p>
+            <p>Sexo:
+                <input type="radio" name="sex" value="h">Hombre
+                <input type="radio" name="sex" value="m">Mujer
+                <input type="radio" name="sex" value="v" checked>Viceversa
+            </p>
+            <button type="button" onclick="addData()">Enviar</button>
+            <button type="reset">Reset</button>
+        </form>
+        <center>
+            <table id="tabla">
+                <tr>
+                    <td>Nombre</td>
+                    <td>Apellidos</td>
+                    <td>Sexo</td>
+                </tr>
+            </table>
+        </center>
+        <script>
+            function addData(){
+                const nombre = document.getElementById('nombre').value;
+                const apellidos = document.getElementById('apellidos').value;
+                const sexo = document.getElementsByName('sex');
+                let sex = '';
+                for(let i = 0; i < sexo.length; i++){
+                    if(sexo[i].checked){
+                        sex = sexo[i].value;
+                    }
+                }
+                const tabla = document.getElementById('tabla');
+                const tr = document.createElement('tr');
+                const td1 = document.createElement('td');
+                td1.innerText = nombre;
+                tr.appendChild(td1);
+                const td2 = document.createElement('td');
+                td2.innerText = apellidos;
+                tr.appendChild(td2);
+                const td3 = document.createElement('td');
+                td3.innerText = sex;
+                tr.appendChild(td3);
+                console.log(tr);
+                tabla.appendChild(tr);
+             }
+        </script>
+    </body>
+</html>
